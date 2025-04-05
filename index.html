@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <i class="fas fa-newspaper logo"></i>
+            <h1>Fake News Detector</h1>
+            <p class="description">Enter news text or upload media to check its credibility.</p>
+        </header>
+
+        <form method="POST" class="main-form" enctype="multipart/form-data">
+            <section class="text-section">
+                <h2>Text Analysis</h2>
+                <textarea name="news_text" placeholder="Enter news text here"></textarea>
+            </section>
+
+            <section class="media-section">
+                <h2>Image Analysis</h2>
+                <div class="upload-group">
+                    <label for="image_file"><i class="fas fa-image"></i> Upload Image:</label>
+                    <input type="file" id="image_file" name="image_file" accept="image/*">
+                </div>
+            </section>
+
+            <button type="submit">
+                <i class="fas fa-search"></i> Analyze
+            </button>
+        </form>
+
+        {% if result or image_analysis %}
+        <div class="results-container">
+            {% if result %}
+            <section class="text-results">
+                <h2>Text Analysis Result:</h2>
+                <p class="prediction"><b>Prediction:</b> {{ result }}</p>
+            </section>
+            {% endif %}
+
+            {% if image_analysis %}
+            <section class="multimedia-results">
+                <h2>Image Analysis Results:</h2>
+                {% if image_analysis %}
+                <p><b>Image Analysis:</b> {{ image_analysis }}</p>
+                {% endif %}
+            </section>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Fake News Detector.</p>
+    </footer>
+</body>
+</html>
